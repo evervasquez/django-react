@@ -1,97 +1,158 @@
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import './index.css';
+import { PageHeader, Menu, Dropdown, Icon, Button, Tag, Typography, Row } from 'antd';
 
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Paragraph } = Typography;
+
+const menu = (
+  <Menu>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+        1st menu item
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+        2nd menu item
+      </a>
+    </Menu.Item>
+    <Menu.Item>
+      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+        3rd menu item
+      </a>
+    </Menu.Item>
+  </Menu>
+);
+
+const DropdownMenu = () => {
+  return (
+    <Dropdown key="more" overlay={menu}>
+      <Button
+        style={{
+          border: 'none',
+          padding: 0,
+        }}
+      >
+        <Icon
+          type="ellipsis"
+          style={{
+            fontSize: 20,
+            verticalAlign: 'top',
+          }}
+        />
+      </Button>
+    </Dropdown>
+  );
+};
+
+const routes = [
+  {
+    path: 'index',
+    breadcrumbName: 'First-level Menu',
+  },
+  {
+    path: 'first',
+    breadcrumbName: 'Second-level Menu',
+  },
+  {
+    path: 'second',
+    breadcrumbName: 'Third-level Menu',
+  },
+];
+
+const IconLink = ({ src, text }) => (
+  <a
+    style={{
+      marginRight: 16,
+      display: 'flex',
+      alignItems: 'center',
+    }}
+  >
+    <img
+      style={{
+        marginRight: 8,
+      }}
+      src={src}
+      alt="start"
+    />
+    {text}
+  </a>
+);
+
+const content = (
+  <div className="content">
+    <Paragraph>
+      Ant Design interprets the color system into two levels: a system-level color system and a
+      product-level color system.
+    </Paragraph>
+    <Paragraph>
+      Ant Design&#x27;s design team preferred to design with the HSB color model, which makes it
+      easier for designers to have a clear psychological expectation of color when adjusting colors,
+      as well as facilitate communication in teams.
+    </Paragraph>
+    <Row className="contentLink" type="flex">
+      <IconLink
+        src="https://gw.alipayobjects.com/zos/rmsportal/MjEImQtenlyueSmVEfUD.svg"
+        text="Quick Start"
+      />
+      <IconLink
+        src="https://gw.alipayobjects.com/zos/rmsportal/NbuDUAuBlIApFuDvWiND.svg"
+        text=" Product Info"
+      />
+      <IconLink
+        src="https://gw.alipayobjects.com/zos/rmsportal/ohOEPSYdDTNnyMbGuyLb.svg"
+        text="Product Doc"
+      />
+    </Row>
+  </div>
+);
+
+const Content = ({ children, extraContent }) => {
+  return (
+    <Row className="content" type="flex">
+      <div className="main" style={{ flex: 1 }}>
+        {children}
+      </div>
+      <div
+        className="extra"
+        style={{
+          marginLeft: 80,
+        }}
+      >
+        {extraContent}
+      </div>
+    </Row>
+  );
+};
 
 ReactDOM.render(
-  <Layout>
-    <Header className="header">
-      <div className="logo" />
-      <Menu
-        theme="dark"
-        mode="horizontal"
-        defaultSelectedKeys={['2']}
-        style={{ lineHeight: '64px' }}
-      >
-        <Menu.Item key="1">nav 1</Menu.Item>
-        <Menu.Item key="2">nav 2</Menu.Item>
-        <Menu.Item key="3">nav 3</Menu.Item>
-      </Menu>
-    </Header>
-    <Layout>
-      <Sider width={200} style={{ background: '#fff' }}>
-        <Menu
-          mode="inline"
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          style={{ height: '100%', borderRight: 0 }}
-        >
-          <SubMenu
-            key="sub1"
-            title={
-              <span>
-                <Icon type="user" />
-                subnav 1
-              </span>
-            }
-          >
-            <Menu.Item key="1">option1</Menu.Item>
-            <Menu.Item key="2">option2</Menu.Item>
-            <Menu.Item key="3">option3</Menu.Item>
-            <Menu.Item key="4">option4</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub2"
-            title={
-              <span>
-                <Icon type="laptop" />
-                subnav 2
-              </span>
-            }
-          >
-            <Menu.Item key="5">option5</Menu.Item>
-            <Menu.Item key="6">option6</Menu.Item>
-            <Menu.Item key="7">option7</Menu.Item>
-            <Menu.Item key="8">option8</Menu.Item>
-          </SubMenu>
-          <SubMenu
-            key="sub3"
-            title={
-              <span>
-                <Icon type="notification" />
-                subnav 3
-              </span>
-            }
-          >
-            <Menu.Item key="9">option9</Menu.Item>
-            <Menu.Item key="10">option10</Menu.Item>
-            <Menu.Item key="11">option11</Menu.Item>
-            <Menu.Item key="12">option12</Menu.Item>
-          </SubMenu>
-        </Menu>
-      </Sider>
-      <Layout style={{ padding: '0 24px 24px' }}>
-        <Breadcrumb style={{ margin: '16px 0' }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <Content
-          style={{
-            background: '#fff',
-            padding: 24,
-            margin: 0,
-            minHeight: 280,
-          }}
-        >
-          Content
-        </Content>
-      </Layout>
-    </Layout>
-  </Layout>,
+  <PageHeader
+    title="Title"
+    subTitle="This is a subtitle"
+    tags={<Tag color="blue">Running</Tag>}
+    extra={[
+      <Button key="3">Operation</Button>,
+      <Button key="2">Operation</Button>,
+      <Button key="1" type="primary">
+        Primary
+      </Button>,
+      <DropdownMenu key="more" />,
+    ]}
+    avatar={{ src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4' }}
+    breadcrumb={{ routes }}
+  >
+    <Content
+      extraContent={
+        <img
+          src="https://gw.alipayobjects.com/mdn/mpaas_user/afts/img/A*KsfVQbuLRlYAAAAAAAAAAABjAQAAAQ/original"
+          alt="content"
+        />
+      }
+    >
+      {content}
+    </Content>
+  </PageHeader>,
   document.getElementById('container'),
 );
